@@ -44,10 +44,10 @@ class LogEntry a where
 -- | Format facts data
 class (Show a) => LogShow a where
   lshow :: a -> String
-  lshow x = show x
+  lshow = show
 
 instance LogShow Int
 instance LogShow Integer
 instance LogShow Bool
 instance LogShow Double where
-  lshow x = printf "%.2f" x 
+  lshow = printf "%.2f"

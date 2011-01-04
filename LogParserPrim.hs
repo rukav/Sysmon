@@ -112,4 +112,4 @@ lookAhead :: (String -> Bool) -> (String -> Bool) -> LogState Bool
 lookAhead p g = do
    xs <- get
    let ys = dropWhile (\x -> (not . p) x && (not . g) x) xs
-   if (null ys || g (head ys)) then return False else return True
+   if null ys || g (head ys) then return False else return True

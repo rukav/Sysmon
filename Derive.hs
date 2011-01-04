@@ -55,7 +55,7 @@ deriveAverage t = do
                  _ -> dec (vp, fld)
 
         let decls = map decl $ zip pats fields
-        clause [xsp] (normalB $ mkApp ((conE name) : vars)) decls
+        clause [xsp] (normalB $ mkApp (conE name : vars)) decls
 
   body <- mapM avgClause constructors
   return [InstanceD [] (AppT (ConT $ mkName "Averageable") (ConT t)) 

@@ -81,7 +81,6 @@ defConfig = forceEither $ do
   cp <- set cp "DEFAULT" "hiLockPromotions" (show 20)
   cp <- set cp "DEFAULT" "loCacheSpinContention" (show 10.0)
   cp <- set cp "DEFAULT" "ioDelayBy" "Disk"
-  
   return cp
 
 -- | Create Sysmon configuration from ConfigParser
@@ -119,7 +118,7 @@ eval s = do
    let results = [(id, foldResult [r s e | r <- rs] (&&), action) | 
                   (id, rs, action) <- fs
                  ]
-   return $ [(id,action,facts) | (id, (b, facts), action) <- results, b]
+   return [(id,action,facts) | (id, (b, facts), action) <- results, b]
 
 sysmonHints :: ConfigParser -> Sysmon -> [Hint]
 sysmonHints cnf s = runReader (eval s) (mkConfig cnf)
@@ -167,7 +166,7 @@ checkSwitchesPerTran s e =
     let ts = totSwitch $ task s
         tr = commited $ transaction s
         pt = if tr == 0 then 0 
-               else (fromIntegral ts) / (fromIntegral tr)
+               else fromIntegral ts / fromIntegral tr
         b = pt >= hiSwitchPerTransaction e in
       result b ["Context switches per transaction"] [pt]
 
@@ -193,7 +192,7 @@ checkContextSwitches s e =
          rs = unzip $ filter (\(_,res) -> res >= hiContextSwitchDue e) $ 
                                map conv cs
          b = not $ null $ fst rs in
-       result b (fst rs) (snd rs)
+       uncurry (result b) rs
      
 -- | Transaction contention 
 checkUlcCont s e = 
@@ -246,7 +245,7 @@ verifyNamedCache cache field valid msg  =
          ps = map res (caches cache) 
          cs = unzip $ filter (\(_, val) -> valid val) ps
          b = not $ null $ fst cs in
-       result b (map (flip (++) msg) $ fst cs) (snd cs)
+       result b (map (++ msg) $ fst cs) (snd cs)
 
 checkCacheTurnover s e =
       let db = (dirtyBuffers.cache) s
