@@ -11,8 +11,10 @@
 
 module LogParserPrim 
        ( LogState (..)
+       , Field
        , matchLine
        , matchField
+       , optLine
        , optString
        , optField
        , string
