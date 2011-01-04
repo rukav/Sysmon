@@ -1,11 +1,22 @@
 {-# LANGUAGE TemplateHaskell #-}
+
+-- |
+-- Module      :  SysmonTypes
+-- Copyright   :  (c) Vitaliy Rukavishnikov 2011
+-- License     :  BSD-style (see the file LICENSE)
+-- 
+-- Maintainer  :  virukav@gmail.com
+-- Stability   :  experimental
+-- Portability :  non-portable
+--
+-- Sysmon report types
+
 module SysmonTypes where
 import Log
 import LogTypes
-import LogParser
 import Average
 import Derive
-import Data.List (transpose) -- ??
+import Data.List (transpose) 
 
 data EngineBusy = EngineBusy {
   name :: String,

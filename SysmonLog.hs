@@ -1,16 +1,26 @@
-module SysmonLog where
-import Data.DateTime
-import Control.Monad.State
-import Control.Monad.Reader (runReader)
-import IO
-import Log
+-- |
+-- Module      :  SysmonLog
+-- Copyright   :  (c) Vitaliy Rukavishnikov 2011
+-- License     :  BSD-style (see the file LICENSE)
+-- 
+-- Maintainer  :  virukav@gmail.com
+-- Stability   :  experimental
+-- Portability :  non-portable
+--
+-- Parse Sybase 15 Sysmon report 
+
+module SysmonLog 
+       ( parseSysmon
+       ) where
 import LogTypes
-import Data.IntervalMap.FingerTree
-import LogParser
+import LogParserPrim
+import Log (parse, Interval(..))
 import SysmonTypes
 import SysmonHints
+import Control.Monad.State
 import Data.List (isInfixOf)
 import Data.Maybe (fromJust)
+import Data.DateTime
 
 instance LogEntry Sysmon where
   mkNode s = LogNode (sysmonTime s, s)
@@ -254,8 +264,8 @@ getSysmon = do
    cache <- getCache
    disk <- getDisk
 
-   return $ Sysmon time kernel task transaction index 
-                   lock cache disk 
+   return $ Sysmon time kernel task transaction 
+                   index lock cache disk 
 
 
 

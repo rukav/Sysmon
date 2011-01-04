@@ -1,19 +1,33 @@
-module SysmonHints (
-HConfig (..), Facts, sysmonHints
-) where
+-- |
+-- Module      :  SysmonHints
+-- Copyright   :  (c) Vitaliy Rukavishnikov 2011
+-- License     :  BSD-style (see the file LICENSE)
+-- 
+-- Maintainer  :  virukav@gmail.com
+-- Stability   :  experimental
+-- Portability :  non-portable
+--
+-- Generate the Sysmon hints (suggestions) by comparing the data from sysmon 
+-- report to the corresponding data from the configuration. 
+
+module SysmonHints 
+       (
+         HConfig (..)
+       , sysmonHints
+       ) where
 import Log
 import LogTypes
 import SysmonTypes
-import Control.Monad.Reader
-import Maybe
 import Text.Printf
-import qualified Data.Vector as V
 import Statistics.Sample
+import Control.Monad.Reader
+import Data.Vector (fromList)
 import Data.ConfigFile
-import Data.Either.Utils
+import Data.Either.Utils (forceEither)
 
 type HintEnv a = Reader HConfig a
 
+-- | Sysmon configuration type
 data HConfig = HConfig {
   hiCPU :: !Double,
   hiIO :: !Double,
@@ -40,6 +54,8 @@ data HConfig = HConfig {
   ioDelayBy :: !String
 }
 
+-- | Default configuration. To override the default configuration item
+-- use ConfigFile package API. 
 defConfig = forceEither $ do 
   let cp = emptyCP
   cp <- set cp "DEFAULT" "hiCPU" (show 85.0)
@@ -68,44 +84,56 @@ defConfig = forceEither $ do
   
   return cp
 
-{--
-defaultConfig = HConfig { 
-  hiCPU = 85.0,
-  hiIO = 50.0,
-  hiIdle = 30.0,
-  hiCheckDiskIO = 50.0,
-  loCacheHits = 90.0,
-  hiCacheWash = 5.0,
-  loLargeIO = 90.0,
-  loAvgDiskIO = 0.005,
-  hiStdDeviation = 30.0,
-  hiSwitchPerTransaction = 60.0,
-  hiContextSwitchDue = 10.0,
-  hiDirtyBuffers = 3.0,
-  hiUlcSemRequests = 10.0,
-  hiLogSemRequests = 10.0,
-  hiAvgLogWrites = 1.0,
-  hiCommitedTrans = 50,
-  hiPageSplits = 10,
-  hiLockSummary = 10.0,
-  hiDeadlock = 10.0,
-  hiLastPageLock = 10.0,
-  hiLockPromotions = 20,
-  loCacheSpinContention = 10.0,
-  ioDelayBy = "Disk"
-}
---}
+-- | Create Sysmon configuration from ConfigParser
+mkConfig :: ConfigParser -> HConfig
+mkConfig c = let cp = Data.ConfigFile.merge defConfig c in
+  HConfig {
+    hiCPU = forceEither $ get cp "Sysmon" "hiCPU",
+    hiIO = forceEither $ get cp "Sysmon" "hiIO",
+    hiIdle = forceEither $ get cp "Sysmon" "hiIdle",
+    hiCheckDiskIO = forceEither $ get cp "Sysmon" "hiCheckDiskIO",
+    loCacheHits = forceEither $ get cp "Sysmon" "loCacheHits",
+    hiCacheWash = forceEither $ get cp "Sysmon" "hiCacheWash",
+    loLargeIO = forceEither $ get cp "Sysmon" "loLargeIO",
+    loAvgDiskIO = forceEither $ get cp "Sysmon" "loAvgDiskIO",
+    hiStdDeviation = forceEither $ get cp "Sysmon" "hiStdDeviation",
+    hiSwitchPerTransaction = forceEither $ get cp "Sysmon" "hiSwitchPerTransaction",
+    hiContextSwitchDue = forceEither $ get cp "Sysmon" "hiContextSwitchDue",
+    hiDirtyBuffers = forceEither $ get cp "Sysmon" "hiDirtyBuffers",
+    hiUlcSemRequests = forceEither $ get cp "Sysmon" "hiUlcSemRequests",
+    hiLogSemRequests = forceEither $ get cp "Sysmon" "hiLogSemRequests",
+    hiAvgLogWrites = forceEither $ get cp "Sysmon" "hiAvgLogWrites",
+    hiCommitedTrans = forceEither $ get cp "Sysmon" "hiCommitedTrans",
+    hiPageSplits = forceEither $ get cp "Sysmon" "hiPageSplits",
+    hiLockSummary = forceEither $ get cp "Sysmon" "hiLockSummary",
+    hiDeadlock = forceEither $ get cp "Sysmon" "hiDeadlock",
+    hiLastPageLock = forceEither $ get cp "Sysmon" "hiLastPageLock",
+    hiLockPromotions = forceEither $ get cp "Sysmon" "hiLockPromotions",
+    loCacheSpinContention = forceEither $ get cp "Sysmon" "loCacheSpinContention",
+    ioDelayBy = forceEither $ get cp "Sysmon" "ioDelayBy"
+  }
+
+eval :: Sysmon -> HintEnv [Hint]
+eval s = do
+   e <- ask 
+   let results = [(id, foldResult [r s e | r <- rs] (&&), action) | 
+                  (id, rs, action) <- fs
+                 ]
+   return $ [(id,action,facts) | (id, (b, facts), action) <- results, b]
+
+sysmonHints :: ConfigParser -> Sysmon -> [Hint]
+sysmonHints cnf s = runReader (eval s) (mkConfig cnf)
 
 percent i t = fromIntegral i / fromIntegral t * 100.0
 
-result :: (Show a) => Bool -> [String] -> [a] -> Result
-result b fs ys = (b, [f ++ " = " ++ show y | (f,y) <- zip fs ys, b])
+result :: (LogShow a) => Bool -> [String] -> [a] -> Result
+result b fs ys = (b, [f ++ " = " ++ lshow y | (f,y) <- zip fs ys, b])
 
 foldResult :: [Result] -> (Bool -> Bool -> Bool) -> Result
 foldResult ds cond = foldr1 f ds where
     f (b, s) (b', s') = (cond b b', if b then s ++ s' else s') 
 
-{-- Kernel contention --}
+-- | Kernel contention 
 checkCpuBusy s e = 
      let busy = avgCpuBusy $ kernel s 
          b = busy >= hiCPU e in
@@ -128,10 +156,10 @@ checkIODisk s e =
         b = checkIO >= hiCheckDiskIO e && avgIO <= loAvgDiskIO e in
      result b ["Check Disk IO", "Average Disk IO"] [checkIO, avgIO]
 
-{-- Task contention --}
+-- | Task contention
 checkEngineBalance s e =
     let ts = taskSwitch $ task s
-        sd = stdDev $ V.fromList $ map (fromIntegral.numSwitch) ts
+        sd = stdDev $ fromList $ map (fromIntegral.numSwitch) ts
         b = sd >= hiStdDeviation e in
      result b ["Standard deviation"] [sd]
 
@@ -162,11 +190,12 @@ checkContextSwitches s e =
               ]
 
          conv (f, x) = let res = percent (f sw) (totSwitchDue sw) in (x, res)
-         rs = unzip $ filter (\(_,res) -> res >= hiContextSwitchDue e) $ map conv cs
+         rs = unzip $ filter (\(_,res) -> res >= hiContextSwitchDue e) $ 
+                               map conv cs
          b = not $ null $ fst rs in
        result b (fst rs) (snd rs)
      
-{-- Transaction contention --} 
+-- | Transaction contention 
 checkUlcCont s e = 
      let req = ulsSemReqs $ transaction s
          cont = percent (waited req) (totReq req) 
@@ -185,13 +214,13 @@ checkAvgLogWrites s e =
          b = trans >= hiCommitedTrans e && avgWrites >= hiAvgLogWrites e in
       result b ["Avg # Writes per Log Page"] [avgWrites]
 
-{-- Index contention --}
+-- | Index contention 
 checkPageCont s e = 
      let cont = splits $ index s 
          b = cont >= hiPageSplits e in
       result b ["Page Splits"] [cont]
 
-{-- Lock contention --}
+-- | Lock contention 
 checkLockCont s e = 
      let cont = percent (lockCont $ lock s) (lockReqs $ lock s) 
          b = cont >= hiLockSummary e in
@@ -211,7 +240,7 @@ checkLockPromotion s e =
       let b = promotions (lock s) >= hiLockPromotions e in
        result b ["Lock Promotions"] [promotions $ lock s]
      
-{-- Cache contention --}
+-- | Cache contention 
 verifyNamedCache cache field valid msg  = 
      let res c = (cacheName c, field c) 
          ps = map res (caches cache) 
@@ -243,7 +272,7 @@ checkCacheLargeIO s e =
            field c = percent (largeIO c) (largeIOTotal c) in  
          verifyNamedCache (cache s) field valid ".Large IO"
 
-{-- Combo checks --} 
+-- | Group checks
 checkIOBusy s e =
      let checkset = [checkIOEngine, checkIODisk] in 
        foldResult [r s e | r <- checkset] (&&)  
@@ -251,7 +280,9 @@ checkIOBusy s e =
 checkResourceCont s e =
       let checkset = [checkContextSwitches, checkSpinCont, checkUlcCont, 
                      checkLogCont, checkPageCont, checkLockCont] in 
-       foldResult [r s e | r <- checkset] (||)         
+       foldResult [r s e | r <- checkset] (||)  
+
+-- | Sysmon rules       
 fs = 
    [
    ("ruleMoreEngines", 
@@ -287,49 +318,3 @@ fs =
      "Lock contention")
    ]
 
-eval :: Sysmon -> HintEnv [Hint]
-eval s = do
-   e <- ask 
-   let results = [(id, foldResult [r s e | r <- rs] (&&), action) | 
-                  (id, rs, action) <- fs
-                 ]
-   return $ [(id,action,facts) | (id, (b, facts), action) <- results, b]
-
-sysmonHints :: ConfigParser -> Sysmon -> [Hint]
-sysmonHints cnf s = runReader (eval s) (mkConfig cnf)
-
-mkConfig :: ConfigParser -> HConfig
-mkConfig c = let cp = Data.ConfigFile.merge defConfig c in
-  HConfig {
-    hiCPU = forceEither $ get cp "Sysmon" "hiCPU",
-    hiIO = forceEither $ get cp "Sysmon" "hiIO",
-    hiIdle = forceEither $ get cp "Sysmon" "hiIdle",
-    hiCheckDiskIO = forceEither $ get cp "Sysmon" "hiCheckDiskIO",
-    loCacheHits = forceEither $ get cp "Sysmon" "loCacheHits",
-    hiCacheWash = forceEither $ get cp "Sysmon" "hiCacheWash",
-    loLargeIO = forceEither $ get cp "Sysmon" "loLargeIO",
-    loAvgDiskIO = forceEither $ get cp "Sysmon" "loAvgDiskIO",
-    hiStdDeviation = forceEither $ get cp "Sysmon" "hiStdDeviation",
-    hiSwitchPerTransaction = forceEither $ get cp "Sysmon" "hiSwitchPerTransaction",
-    hiContextSwitchDue = forceEither $ get cp "Sysmon" "hiContextSwitchDue",
-    hiDirtyBuffers = forceEither $ get cp "Sysmon" "hiDirtyBuffers",
-    hiUlcSemRequests = forceEither $ get cp "Sysmon" "hiUlcSemRequests",
-    hiLogSemRequests = forceEither $ get cp "Sysmon" "hiLogSemRequests",
-    hiAvgLogWrites = forceEither $ get cp "Sysmon" "hiAvgLogWrites",
-    hiCommitedTrans = forceEither $ get cp "Sysmon" "hiCommitedTrans",
-    hiPageSplits = forceEither $ get cp "Sysmon" "hiPageSplits",
-    hiLockSummary = forceEither $ get cp "Sysmon" "hiLockSummary",
-    hiDeadlock = forceEither $ get cp "Sysmon" "hiDeadlock",
-    hiLastPageLock = forceEither $ get cp "Sysmon" "hiLastPageLock",
-    hiLockPromotions = forceEither $ get cp "Sysmon" "hiLockPromotions",
-    loCacheSpinContention = forceEither $ get cp "Sysmon" "loCacheSpinContention",
-    ioDelayBy = forceEither $ get cp "Sysmon" "ioDelayBy"
-  }
-
-{--
-testh :: IO ()
-testh = do
-  sm <- parseSysmon "./sysmon_100310_0952.out"
-  let hints = runReader (evalSysmonRules sm) defaultConfig
-  print hints
---}

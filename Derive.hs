@@ -1,8 +1,18 @@
-module Derive where
+-- |
+-- Module      :  Derive
+-- Copyright   :  (c) Vitaliy Rukavishnikov 2011
+-- License     :  BSD-style (see the file LICENSE)
+-- 
+-- Maintainer  :  virukav@gmail.com
+-- Stability   :  experimental
+-- Portability :  non-portable
+--
+-- Generate average functions for Sysmon data type
 
+module Derive where
+import Average
 import Language.Haskell.TH
 import Control.Monad
-import Average
 
 genpe :: String -> Int -> Q ([PatQ],[ExpQ]) 
 genpe s n = do 
@@ -48,5 +58,6 @@ deriveAverage t = do
         clause [xsp] (normalB $ mkApp ((conE name) : vars)) decls
 
   body <- mapM avgClause constructors
-
-  return [InstanceD [] (AppT (ConT $ mkName "Averageable") (ConT t)) [FunD (mkName "avg") body]]
+  return [InstanceD [] (AppT (ConT $ mkName "Averageable") (ConT t)) 
+           [FunD (mkName "avg") body]
+         ]

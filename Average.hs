@@ -1,10 +1,20 @@
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE BangPatterns #-}
 
+-- |
+-- Module      :  Average
+-- Copyright   :  (c) Vitaliy Rukavishnikov 2011
+-- License     :  BSD-style (see the file LICENSE)
+-- 
+-- Maintainer  :  virukav@gmail.com
+-- Stability   :  experimental
+-- Portability :  non-portable
+--
+-- Defines the class to calculate the average Sysmon report 
+
 module Average where
-import Data.List
 import LogTypes
+import Data.List
 import Data.IntervalMap.FingerTree
 
 class Averageable a where
