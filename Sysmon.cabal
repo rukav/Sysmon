@@ -1,6 +1,6 @@
 Name:                Sysmon
 Version:             0.1
-Description:         The Sysmon is a library for processing Sysbase 15 sysmon reports.
+Description:         A library for processing Sysbase 15 sysmon reports.
 License:             BSD3
 License-File:        LICENSE
 Author:              Vitaliy Rukavishnikov
