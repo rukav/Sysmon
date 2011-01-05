@@ -1,8 +1,8 @@
 import Data.ConfigFile
 import Data.DateTime
-import Log
-import LogTypes
-import SysmonLog
+import Database.Sybase.Sysmon.Log
+import Database.Sybase.Sysmon.LogTypes
+import Database.Sybase.Sysmon.SysmonLog
 import System.IO
 
 main = do

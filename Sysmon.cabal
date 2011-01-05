@@ -17,18 +17,23 @@ Cabal-Version:       >=1.2
 Extra-Source-Files:  README
 
 Library
-    Exposed-Modules:     LogTypes, Log, SysmonTypes, SysmonLog
-    Other-modules:  	 Average, Derive, LogParserPrim, SysmonHints
+    Exposed-Modules:     Database.Sybase.Sysmon.LogTypes, 
+                         Database.Sybase.Sysmon.Log, 
+                         Database.Sybase.Sysmon.LogParserPrim, 
+                         Database.Sybase.Sysmon.SysmonTypes, 
+                         Database.Sybase.Sysmon.SysmonLog, 
+                         Database.Sybase.Sysmon.SysmonHints
+    Other-modules:  	 Database.Sybase.Sysmon.Average, 
+                         Database.Sybase.Sysmon.Derive
     Build-Depends:       base >= 3.0.3.2 && < 5, 
-                         Glob >= 0.5.1, 
-                         ConfigFile >= 1.0.6
-                         fingertree >= 0.0.1.0, 
+                         Glob >= 0.5.1,
+                         ConfigFile >= 1.0.6,
                          datetime >= 0.2,
+                         fingertree >= 0.0.1.0,
+                         pretty >= 1.0.1.1,
+                         filepath,
+                         mtl,
+                         template-haskell,
+                         MissingH,
+                         vector,
                          statistics >= 0.8.0.4
-                         data-accessor >= 0.2.1.4,
-                         data-accessor-template >= 0.2.1.5, 
-                         data-accessor-transformers >= 0.2.1.2, 
-                         array, 
-                         filepath, 
-                         mtl, 
-                         haskell98
