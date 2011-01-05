@@ -2,7 +2,7 @@ The Sysmon package is a library for processing Sybase 15 sysmon reports. Sysmon 
 
 The library main features are parsing sysmon reports, querying the time interval, aggregating the multiple sysmon reports covered by the requested time interval, providing some hints. The hints properties are configured.
  
-See the Log.hs for the exported functions and Sample.hs that provide the usage example.   
+See the Log.hs for the exported functions and examples/Sample.hs for the usage example.   
 
 
 
