@@ -11,10 +11,11 @@ Build-Type:          Simple
 Tested-with:	     GHC==6.12.3
 Category:            Database
 Synopsis:            Sybase 15 sysmon reports processor
-Data-Dir:            tests
+Data-Dir:            examples
 Data-Files:	     sysmon_100310_0952.out
 Cabal-Version:       >=1.2
-Extra-Source-Files:  README
+Extra-Source-Files:  README,
+                     examples/Sample.hs
 
 Library
     Exposed-Modules:     Database.Sybase.Sysmon.LogTypes, 
