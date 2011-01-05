@@ -1,5 +1,5 @@
 Name:                Sysmon
-Version:             0.1
+Version:             0.1.1
 Description:         A library for processing Sysbase 15 sysmon reports.
 License:             BSD3
 License-File:        LICENSE
