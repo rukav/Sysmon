@@ -1,0 +1,904 @@
+=============================================================================== 
+      Sybase Adaptive Server Enterprise System Performance Report
+=============================================================================== 
+ 
+Server Version:        Adaptive Server Enterprise/15.0.3/EBF 16548 ESD#1/P/Sun_ 
+Server Name:           Test                                                
+Run Date:              Jan 27, 2010                                             
+Sampling Started at:   Jan 27, 2010 15:40:56                                    
+Sampling Ended at:     Jan 27, 2010 15:41:56                                    
+Sample Interval:       00:01:00                                                 
+Sample Mode:           No Clear                                                 
+Counters Last Cleared: Jan 20, 2010 11:35:53                                    
+ 
+=============================================================================== 
+ 
+Kernel Utilization
+------------------                        
+ 
+  Engine Busy Utilization        CPU Busy   I/O Busy       Idle                 
+  ------------------------       --------   --------   --------    
+    Engine 0                        0.2 %      0.0 %     99.8 %              
+    Engine 1                        0.2 %      0.0 %     99.8 %              
+    Engine 2                        0.0 %      0.0 %    100.0 %              
+    Engine 3                        0.2 %      0.2 %     99.7 %              
+    Engine 4                        0.2 %      1.3 %     98.5 %              
+    Engine 5                        0.0 %      0.2 %     99.8 %              
+    Engine 6                        0.0 %      0.0 %    100.0 %              
+    Engine 7                        2.5 %     46.3 %     51.2 %              
+    Engine 8                        0.0 %      0.0 %    100.0 %              
+    Engine 9                        0.0 %      0.0 %    100.0 %              
+    Engine 10                       0.0 %      0.0 %    100.0 %              
+    Engine 11                       0.0 %      0.0 %    100.0 %              
+  ------------------------       --------   --------   --------    
+  Summary           Total           3.2 %     48.0 %   1148.8 %              
+                  Average           0.3 %      4.0 %     95.7 %              
+ 
+  CPU Yields by Engine            per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Engine 0                         73.1          28.3        4385      10.2 %
+    Engine 1                         69.1          26.7        4146       9.7 %
+    Engine 2                         59.0          22.8        3538       8.2 %
+    Engine 3                         72.0          27.9        4318      10.1 %
+    Engine 4                         58.1          22.5        3484       8.1 %
+    Engine 5                         58.9          22.8        3533       8.2 %
+    Engine 6                         59.0          22.8        3539       8.2 %
+    Engine 7                         30.9          12.0        1854       4.3 %
+    Engine 8                         59.0          22.8        3537       8.2 %
+    Engine 9                         59.2          22.9        3550       8.3 %
+    Engine 10                        59.1          22.9        3548       8.3 %
+    Engine 11                        58.9          22.8        3531       8.2 %
+  -------------------------  ------------  ------------  ----------
+  Total CPU Yields                  716.1         277.2       42963             
+ 
+  Network Checks
+    Non-Blocking                 223674.6       86583.7    13420473      99.7 %
+    Blocking                        714.9         276.7       42894       0.3 %
+  -------------------------  ------------  ------------  ----------
+  Total Network I/O Checks       224389.5       86860.4    13463367             
+  Avg Net I/Os per Check              n/a           n/a     0.00008       n/a   
+ 
+  Disk I/O Checks
+    Total Disk I/O Checks        225442.9       87268.2    13526571       n/a   
+    Checks Returning I/O         201521.5       78008.3    12091292      89.4 %
+    Avg Disk I/Os Returned            n/a           n/a     0.00091       n/a   
+ 
+  Tuning Recommendations for Kernel Utilization                                 
+  ---------------------------------------------                                 
+  - Consider decreasing the 'runnable process search count'
+    configuration parameter if you require the CPU's on
+    the machine to be used for other applications.
+ 
+ 
+=============================================================================== 
+ 
+Worker Process Management
+-------------------------
+                                  per sec      per xact       count  % of total
+                             ------------  ------------  ----------  ---------- 
+ Worker Process Requests
+   Total Requests                     0.0           0.0           0       n/a   
+ 
+ Worker Process Usage
+   Total Used                         0.0           0.0           0       n/a   
+   Max Ever Used During Sample        0.0           0.0           0       n/a   
+ 
+ Memory Requests for Worker Processes
+   Total Requests                     0.0           0.0           0       n/a   
+ 
+ Tuning Recommendations for Worker Processes                                    
+ -------------------------------------------                                    
+  - Consider decreasing the 'number of worker processes'
+    configuration parameter.
+ 
+ 
+=============================================================================== 
+ 
+Parallel Query Management
+-------------------------
+ 
+  Parallel Query Usage            per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total Parallel Queries              0.0           0.0           0       n/a   
+ 
+  Merge Lock Requests             per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total # of Requests                 0.0           0.0           0       n/a   
+ 
+  Sort Buffer Waits               per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total # of Waits                    0.0           0.0           0       n/a   
+ 
+=============================================================================== 
+ 
+Task Management                   per sec      per xact       count  % of total
+---------------------------  ------------  ------------  ----------  ---------- 
+ 
+  Connections Opened                  0.2           0.1           9       n/a   
+ 
+  Task Context Switches by Engine
+    Engine 0                          3.7           1.4         223       2.1 %
+    Engine 1                          1.7           0.7         102       1.0 %
+    Engine 2                          1.2           0.5          71       0.7 %
+    Engine 3                          4.5           1.7         267       2.5 %
+    Engine 4                          2.8           1.1         169       1.6 %
+    Engine 5                          1.7           0.7         102       1.0 %
+    Engine 6                          1.7           0.7         101       1.0 %
+    Engine 7                        144.7          56.0        8680      82.1 %
+    Engine 8                          0.7           0.3          44       0.4 %
+    Engine 9                          6.4           2.5         381       3.6 %
+    Engine 10                         5.3           2.1         319       3.0 %
+    Engine 11                         1.8           0.7         110       1.0 %
+  -------------------------  ------------  ------------  ----------
+    Total Task Switches:            176.2          68.2       10569             
+ 
+  Task Context Switches Due To:
+    Voluntary Yields                  8.7           3.4         520       4.9 %
+    Cache Search Misses               4.2           1.6         250       2.4 %
+    Exceeding I/O batch size          0.0           0.0           0       0.0 %
+    System Disk Writes                1.7           0.7         101       1.0 %
+    Logical Lock Contention           0.0           0.0           0       0.0 %
+    Address Lock Contention           0.0           0.0           0       0.0 %
+    Latch Contention                  0.0           0.0           0       0.0 %
+    Log Semaphore Contention          0.0           0.0           0       0.0 %
+    PLC Lock Contention               0.0           0.0           0       0.0 %
+    Group Commit Sleeps               0.1           0.0           7       0.1 %
+    Last Log Page Writes              1.1           0.4          67       0.6 %
+    Modify Conflicts                  0.0           0.0           0       0.0 %
+    I/O Device Contention             0.0           0.0           0       0.0 %
+    Network Packet Received           8.5           3.3         510       4.8 %
+    Network Packet Sent               0.7           0.3          44       0.4 %
+    Network services                  9.2           3.6         552       5.2 %
+    Other Causes                    142.0          55.0        8518      80.6 %
+ 
+ 
+=============================================================================== 
+ 
+Application Management
+----------------------
+ 
+  Application Statistics Summary (All Applications)
+  -------------------------------------------------
+  Priority Changes                per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    To High Priority                  0.0           0.0           0       0.0 %
+    To Medium Priority                0.6           0.2          37      54.4 %
+    To Low Priority                   0.5           0.2          31      45.6 %
+  -------------------------  ------------  ------------  ----------
+  Total Priority Changes              1.1           0.4          68             
+ 
+  Allotted Slices Exhausted       per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total Slices Exhausted              0.0           0.0           0       n/a   
+ 
+  Skipped Tasks By Engine         per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total Engine Skips                  0.0           0.0           0       n/a   
+ 
+  Engine Scope Changes                0.0           0.0           0       n/a   
+ 
+=============================================================================== 
+ 
+ESP Management                    per sec      per xact       count  % of total
+---------------------------  ------------  ------------  ----------  ---------- 
+  ESP Requests                        0.0           0.0           0       n/a   
+=============================================================================== 
+ 
+Housekeeper Task Activity
+-------------------------
+                                  per sec      per xact       count  % of total
+                             ------------  ------------  ----------             
+Buffer Cache Washes                                                             
+  Clean                            120.0          46.5        7202      99.2 % 
+  Dirty                              1.0           0.4          59       0.8 % 
+                             ------------  ------------  ----------             
+Total Washes                       121.0          46.8        7261              
+ 
+Garbage Collections                  2.8           1.1         168       n/a    
+Pages Processed in GC                0.0           0.0           0       n/a    
+ 
+Statistics Updates                   0.4           0.2          24       n/a    
+ 
+  Tuning Recommendations for Housekeeper                                        
+  --------------------------------------                                        
+  - Consider increasing the 'housekeeper free write percent'
+    configuration parameter.
+ 
+=============================================================================== 
+ 
+Monitor Access to Executing SQL
+-------------------------------
+                                  per sec      per xact       count  % of total
+                             ------------  ------------  ----------  ---------- 
+ Waits on Execution Plans            0.0           0.0           0       n/a    
+ Number of SQL Text Overflows        0.0           0.0           0       n/a    
+ Maximum SQL Text Requested          n/a           n/a        1655       n/a    
+  (since beginning of sample)                                                   
+ 
+ 
+ Tuning Recommendations for Monitor Access to Executing SQL                     
+ ----------------------------------------------------------                     
+ - Consider decreasing the 'max SQL text monitored' parameter 
+   to 4923 (i.e., half way from its current value to Maximum 
+   SQL Text Requested).
+ 
+=============================================================================== 
+ 
+Transaction Profile
+-------------------
+ 
+  Transaction Summary             per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Committed Xacts                   2.6           n/a         155     n/a     
+ 
+  Transaction Detail              per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Inserts
+      APL Heap Table                 23.7           9.2        1419      12.7 %
+      APL Clustered Table             0.0           0.0           0       0.0 %
+      Data Only Lock Table          162.0          62.7        9722      87.3 %
+      Fast Bulk Insert                0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Total Rows Inserted             185.7          71.9       11141      98.8 %
+ 
+    Updates
+      APL Deferred                    0.0           0.0           0       0.0 %
+      APL Direct In-place             0.0           0.0           0       0.0 %
+      APL Direct Cheap                0.0           0.0           0       0.0 %
+      APL Direct Expensive            0.0           0.0           0       0.0 %
+      DOL Deferred                    0.0           0.0           0       0.0 %
+      DOL Direct                      0.2           0.1          14     100.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Total Rows Updated                0.2           0.1          14       0.1 %
+ 
+    Data Only Locked Updates
+      DOL Replace                     0.2           0.1          14     100.0 %
+      DOL Shrink                      0.0           0.0           0       0.0 %
+      DOL Cheap Expand                0.0           0.0           0       0.0 %
+      DOL Expensive Expand            0.0           0.0           0       0.0 %
+      DOL Expand & Forward            0.0           0.0           0       0.0 %
+      DOL Fwd Row Returned            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Total DOL Rows Updated            0.2           0.1          14       0.1 %
+ 
+    Deletes
+      APL Deferred                    0.0           0.0           0       0.0 %
+      APL Direct                      0.0           0.0           0       0.0 %
+      DOL                             2.0           0.8         120     100.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Total Rows Deleted                2.0           0.8         120       1.1 %
+  =========================  ============  ============  ==========
+    Total Rows Affected             187.9          72.7       11275             
+ 
+=============================================================================== 
+ 
+Transaction Management
+----------------------
+ 
+  ULC Flushes to Xact Log         per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    by Full ULC                       0.7           0.3          42      28.0 %
+    by End Transaction                0.8           0.3          49      32.7 %
+    by Change of Database             0.1           0.0           4       2.7 %
+    by Single Log Record              0.3           0.1          17      11.3 %
+    by Unpin                          0.6           0.2          38      25.3 %
+    by Other                          0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------
+  Total ULC Flushes                   2.5           1.0         150             
+ 
+  ULC Flushes Skipped             per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    by PLC Discards                   2.0           0.8         118     100.0 %
+  -------------------------  ------------  ------------  ----------
+  Total ULC Discards                  2.0           0.8         118             
+ 
+  ULC Log Records                    60.4          23.4        3623       n/a   
+  Max ULC Size During Sample          n/a           n/a           0       n/a   
+ 
+  ULC Semaphore Requests
+    Granted                          90.2          34.9        5413     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------
+  Total ULC Semaphore Req            90.2          34.9        5413             
+ 
+  Log Semaphore Requests
+    Granted                           3.6           1.4         213     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------
+  Total Log Semaphore Req             3.6           1.4         213             
+ 
+  Transaction Log Writes              1.9           0.7         111       n/a   
+  Transaction Log Alloc               2.8           1.1         168       n/a   
+  Avg # Writes per Log Page           n/a           n/a     0.66071       n/a   
+ 
+  Tuning Recommendations for Transaction Management                             
+  -------------------------------------------------                             
+  - Consider increasing the 'user log cache size'
+    configuration parameter.
+ 
+=============================================================================== 
+ 
+Index Management
+----------------
+ 
+  Nonclustered Maintenance        per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Ins/Upd Requiring Maint           0.0           0.0           0       n/a   
+      # of NC Ndx Maint               0.0           0.0           0       n/a   
+ 
+    Deletes Requiring Maint           0.0           0.0           0       n/a   
+      # of NC Ndx Maint               0.0           0.0           0       n/a   
+ 
+    RID Upd from Clust Split          0.0           0.0           0       n/a   
+      # of NC Ndx Maint               0.0           0.0           0       n/a   
+ 
+    Upd/Del DOL Req Maint             2.2           0.9         134       n/a   
+      # of DOL Ndx Maint              2.6           1.0         156       n/a   
+      Avg DOL Ndx Maint / Op          n/a           n/a     1.16418       n/a   
+ 
+  Page Splits                         0.0           0.0           0       n/a   
+ 
+  Page Shrinks                        0.0           0.0           0       n/a   
+ 
+  Index Scans                     per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Ascending Scans                  34.7          13.4        2082      47.0 %
+    DOL Ascending Scans              38.8          15.0        2329      52.6 %
+    Descending Scans                  0.2           0.1          14       0.3 %
+    DOL Descending Scans              0.0           0.0           1       0.0 %
+                             ------------  ------------  ----------             
+    Total Scans                      73.8          28.6        4426             
+ 
+=============================================================================== 
+ 
+Lock Management
+---------------
+ 
+  Lock Summary                    per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total Lock Requests               175.8          68.0       10546       n/a   
+  Avg Lock Contention                 0.0           0.0           0       0.0 %
+  Deadlock Percentage                 0.0           0.0           0       0.0 %
+ 
+  Lock Detail                     per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+ 
+  Table Lock Hashtable
+    Lookups                          40.1          15.5        2406       n/a   
+    Avg Chain Length                  n/a           n/a     0.01081       n/a   
+    Spinlock Contention               n/a           n/a         n/a       0.0 %
+ 
+  Exclusive Table
+    Total EX-Table Requests           0.0           0.0           0       n/a   
+ 
+  Shared Table
+    Total SH-Table Requests           0.0           0.0           0       n/a   
+ 
+  Exclusive Intent
+    Granted                           3.0           1.2         180     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total EX-Intent Requests            3.0           1.2         180       1.7 %
+ 
+  Shared Intent
+    Granted                          36.7          14.2        2200     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total SH-Intent Requests           36.7          14.2        2200      20.9 %
+ 
+  Page & Row Lock HashTable
+    Lookups                          75.9          29.4        4555       n/a   
+    Avg Chain Length                  n/a           n/a     0.01537       n/a   
+    Spinlock Contention               n/a           n/a         n/a       0.0 %
+ 
+  Exclusive Page
+    Granted                           0.8           0.3          46     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total EX-Page Requests              0.8           0.3          46       0.4 %
+ 
+  Update Page
+    Total UP-Page Requests            0.0           0.0           0       n/a   
+ 
+  Shared Page
+    Granted                          33.0          12.8        1980     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total SH-Page Requests             33.0          12.8        1980      18.8 %
+ 
+ 
+  Exclusive Row
+    Granted                           2.3           0.9         139     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total EX-Row Requests               2.3           0.9         139       1.3 %
+ 
+  Update Row
+    Granted                           0.7           0.3          41     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total UP-Row Requests               0.7           0.3          41       0.4 %
+ 
+  Shared Row
+    Granted                          29.5          11.4        1770     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total SH-Row Requests              29.5          11.4        1770      16.8 %
+ 
+ 
+  Next-Key
+    Total Next-Key Requests           0.0           0.0           0       n/a   
+ 
+  Address Lock Hashtable
+    Lookups                          69.8          27.0        4190       n/a   
+    Avg Chain Length                  n/a           n/a     0.00000       n/a   
+    Spinlock Contention               n/a           n/a         n/a       0.0 %
+ 
+  Exclusive Address
+    Granted                           0.5           0.2          27     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total EX-Address Requests           0.5           0.2          27       0.3 %
+ 
+  Shared Address
+    Granted                          69.4          26.9        4163     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total SH-Address Requests          69.4          26.9        4163      39.5 %
+ 
+ 
+  Last Page Locks on Heaps
+    Granted                          23.7           9.2        1419     100.0 %
+    Waited                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total Last Pg Locks                23.7           9.2        1419     100.0 %
+ 
+ 
+  Deadlocks by Lock Type          per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total Deadlocks                     0.0           0.0           0       n/a   
+ 
+ 
+  Deadlock Detection
+    Deadlock Searches                 0.0           0.0           0       n/a   
+ 
+ 
+  Lock Promotions
+    Total Lock Promotions             0.0           0.0           0       n/a   
+ 
+ 
+  Lock Timeouts by Lock Type      per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total Timeouts                      0.0           0.0           0       n/a   
+ 
+ 
+=============================================================================== 
+ 
+Data Cache Management
+---------------------
+ 
+  Cache Statistics Summary (All Caches)
+  -------------------------------------
+                                  per sec      per xact       count  % of total
+                             ------------  ------------  ----------  ----------
+ 
+    Cache Search Summary
+      Total Cache Hits             1744.9         675.5      104696      84.0 %
+      Total Cache Misses            332.2         128.6       19929      16.0 %
+  -------------------------  ------------  ------------  ----------
+    Total Cache Searches           2077.1         804.0      124625             
+ 
+    Cache Turnover
+      Buffers Grabbed               809.3         313.3       48560       n/a   
+      Buffers Grabbed Dirty           0.0           0.0           0       0.0 %
+ 
+    Cache Strategy Summary
+      Cached (LRU) Buffers         1554.3         601.7       93259      99.4 %
+      Discarded (MRU) Buffers         9.7           3.8         582       0.6 %
+ 
+    Large I/O Usage
+      Large I/Os Performed           40.8          15.8        2445       8.5 %
+ 
+      Large I/Os Denied due to                                                  
+        Pool < Prefetch Size        435.9         168.7       26154      91.5 %
+        Pages Requested                                                         
+        Reside in Another                                                       
+        Buffer Pool                   0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------
+    Total Large I/O Requests        476.7         184.5       28599             
+ 
+    Large I/O Effectiveness
+      Pages by Lrg I/O Cached       317.5         122.9       19050       n/a   
+      Pages by Lrg I/O Used         183.7          71.1       11021      57.9 %
+ 
+    Asynchronous Prefetch Activity
+      APFs Issued                   174.8          67.7       10490      28.8 %
+      APFs Denied Due To                                                        
+        APF I/O Overloads             0.0           0.0           0       0.0 %
+        APF Limit Overloads           0.0           0.0           0       0.0 %
+        APF Reused Overloads          0.0           0.0           0       0.0 %
+      APF Buffers Found in Cache                                                
+        With Spinlock Held            0.1           0.0           3       0.0 %
+        W/o Spinlock Held           433.0         167.6       25977      71.2 %
+  -------------------------  ------------  ------------  ----------
+    Total APFs Requested            607.8         235.3       36470             
+ 
+    Other Asynchronous Prefetch Statistics
+      APFs Used                     173.4          67.1       10402       n/a   
+      APF Waits for I/O             140.2          54.3        8414       n/a   
+      APF Discards                    0.0           0.0           0       n/a   
+ 
+    Dirty Read Behavior
+      Page Requests                   0.0           0.0           0       n/a   
+ 
+------------------------------------------------------------------------------- 
+  Cache: dbcc_cache
+                                  per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Spinlock Contention               n/a           n/a         n/a       0.0 %
+ 
+    Utilization                       n/a           n/a         n/a       0.0 %
+ 
+    Cache Searches
+      Total Cache Searches            0.0           0.0           0       n/a
+  -------------------------  ------------  ------------  ----------
+    Total Cache Searches              0.0           0.0           0
+ 
+    Pool Turnover                     0.0           0.0           0       n/a
+ 
+    Buffer Wash Behavior
+      Statistics Not Available - No Buffers Entered Wash Section Yet
+ 
+    Cache Strategy
+      Statistics Not Available - No Buffers Displaced Yet
+ 
+    Large I/O Usage
+      Total Large I/O Requests        0.0           0.0           0       n/a
+ 
+    Large I/O Detail
+     16  Kb Pool
+        Pages Cached                  0.0           0.0           0       n/a   
+        Pages Used                    0.0           0.0           0       n/a   
+ 
+    Dirty Read Behavior
+	  Page Requests               0.0           0.0           0       n/a
+ 
+    Tuning Recommendations for Data cache : dbcc_cache
+    -------------------------------------                                       
+    - Consider removing the 16k pool for this cache.
+ 
+------------------------------------------------------------------------------- 
+  Cache: default data cache
+                                  per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Spinlock Contention               n/a           n/a         n/a       0.0 %
+ 
+    Utilization                       n/a           n/a         n/a     100.0 %
+ 
+    Cache Searches
+      Cache Hits                   1744.9         675.5      104696      84.0 %
+         Found in Wash                2.4           0.9         145       0.1 %
+      Cache Misses                  332.2         128.6       19929      16.0 %
+  -------------------------  ------------  ------------  ----------
+    Total Cache Searches           2077.1         804.0      124625
+ 
+    Pool Turnover
+      2  Kb Pool
+          LRU Buffer Grab           768.6         297.5       46115      95.0 %
+            Grabbed Dirty             0.0           0.0           0       0.0 %
+      4  Kb Pool
+          LRU Buffer Grab             1.4           0.5          85       0.2 %
+            Grabbed Dirty             0.0           0.0           0       0.0 %
+      16 Kb Pool
+          LRU Buffer Grab            39.3          15.2        2360       4.9 %
+            Grabbed Dirty             0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------
+    Total Cache Turnover            809.3         313.3       48560
+ 
+    Buffer Wash Behavior
+      Statistics Not Available - No Buffers Entered Wash Section Yet
+ 
+    Cache Strategy
+      Cached (LRU) Buffers         1554.3         601.7       93259      99.4 %
+      Discarded (MRU) Buffers         9.7           3.8         582       0.6 %
+ 
+    Large I/O Usage
+      Large I/Os Performed           40.8          15.8        2445       8.5 %
+ 
+      Large I/Os Denied due to
+        Pool < Prefetch Size         14.8           5.7         888       3.1 %
+        Pages Requested
+        Reside in Another
+        Buffer Pool                 421.1         163.0       25266      88.3 %
+  -------------------------  ------------  ------------  ----------
+    Total Large I/O Requests        476.7         184.5       28599
+ 
+    Large I/O Detail
+     4   Kb Pool
+        Pages Cached                  2.8           1.1         170       n/a
+        Pages Used                    2.8           1.1         167      98.2 %
+     16  Kb Pool
+        Pages Cached                314.7         121.8       18880       n/a
+        Pages Used                  180.9          70.0       10854      57.5 %
+ 
+    Dirty Read Behavior
+	  Page Requests               0.0           0.0           0       n/a
+ 
+------------------------------------------------------------------------------- 
+  Cache: tempdb_cache
+                                  per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Spinlock Contention               n/a           n/a         n/a       0.0 %
+ 
+    Utilization                       n/a           n/a         n/a       0.0 %
+ 
+    Cache Searches
+      Total Cache Searches            0.0           0.0           0       n/a
+  -------------------------  ------------  ------------  ----------
+    Total Cache Searches              0.0           0.0           0
+ 
+    Pool Turnover                     0.0           0.0           0       n/a
+ 
+    Buffer Wash Behavior
+      Statistics Not Available - No Buffers Entered Wash Section Yet
+ 
+    Cache Strategy
+      Statistics Not Available - No Buffers Displaced Yet
+ 
+    Large I/O Usage
+      Total Large I/O Requests        0.0           0.0           0       n/a
+ 
+    Large I/O Detail
+     4   Kb Pool
+        Pages Cached                  0.0           0.0           0       n/a   
+        Pages Used                    0.0           0.0           0       n/a   
+     16  Kb Pool
+        Pages Cached                  0.0           0.0           0       n/a   
+        Pages Used                    0.0           0.0           0       n/a   
+ 
+    Dirty Read Behavior
+	  Page Requests               0.0           0.0           0       n/a
+ 
+    Tuning Recommendations for Data cache : tempdb_cache
+    -------------------------------------                                       
+    - Consider removing the 4k pool for this cache.
+ 
+    - Consider removing the 16k pool for this cache.
+ 
+=============================================================================== 
+ 
+Procedure Cache Management        per sec      per xact       count  % of total
+---------------------------  ------------  ------------  ----------  ---------- 
+  Procedure Requests                  5.7           2.2         339       n/a   
+  Procedure Reads from Disk           0.0           0.0           0       0.0 %
+  Procedure Writes to Disk            0.0           0.0           0       0.0 %
+  Procedure Removals                  0.1           0.1           8       n/a   
+  Procedure Recompilations            0.0           0.0           0       n/a   
+ 
+  SQL Statement Cache:
+    Statements Cached                 0.1           0.0           3       n/a   
+    Statements Found in Cache         0.2           0.1          10       n/a   
+    Statements Not Found              0.1           0.0           3       n/a   
+    Statements Dropped                0.0           0.0           0       n/a   
+    Statements Restored               0.0           0.0           0       n/a   
+    Statements Not Cached             0.0           0.0           0       n/a   
+ 
+ 
+=============================================================================== 
+ 
+Memory Management                 per sec      per xact       count  % of total
+---------------------------  ------------  ------------  ----------  ---------- 
+  Pages Allocated                     1.3           0.5          75       n/a   
+  Pages Released                      1.3           0.5          75       n/a   
+ 
+=============================================================================== 
+ 
+Recovery Management
+-------------------
+ 
+  Checkpoints                     per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    # of Normal Checkpoints           0.1           0.0           4     100.0 %
+    # of Free Checkpoints             0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------             
+  Total Checkpoints                   0.1           0.0           4             
+ 
+  Avg Time per Normal Chkpt       0.00000 seconds                               
+ 
+=============================================================================== 
+ 
+Disk I/O Management
+-------------------
+ 
+  Max Outstanding I/Os            per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Server                            n/a           n/a         255       n/a   
+    Engine 0                          n/a           n/a         352       n/a   
+    Engine 1                          n/a           n/a         396       n/a   
+    Engine 2                          n/a           n/a         425       n/a   
+    Engine 3                          n/a           n/a         389       n/a   
+    Engine 4                          n/a           n/a         198       n/a   
+    Engine 5                          n/a           n/a         218       n/a   
+    Engine 6                          n/a           n/a         263       n/a   
+    Engine 7                          n/a           n/a         215       n/a   
+    Engine 8                          n/a           n/a         263       n/a   
+    Engine 9                          n/a           n/a         236       n/a   
+    Engine 10                         n/a           n/a         403       n/a   
+    Engine 11                         n/a           n/a         181       n/a   
+ 
+ 
+  I/Os Delayed by
+    Disk I/O Structures               n/a           n/a           0       n/a   
+    Server Config Limit               n/a           n/a           0       n/a   
+    Engine Config Limit               n/a           n/a           0       n/a   
+    Operating System Limit            n/a           n/a           0       n/a   
+ 
+ 
+  Total Requested Disk I/Os         183.3          71.0       11000             
+ 
+  Completed Disk I/O's
+    Asynchronous I/O's
+      Engine 0                        0.0           0.0           0       0.0 %
+      Engine 1                        0.1           0.0           4       0.0 %
+      Engine 2                        0.0           0.0           0       0.0 %
+      Engine 3                        1.0           0.4          57       0.5 %
+      Engine 4                        1.9           0.7         116       1.1 %
+      Engine 5                        1.4           0.5          83       0.8 %
+      Engine 6                        0.7           0.3          43       0.4 %
+      Engine 7                      177.4          68.7       10645      96.7 %
+      Engine 8                        0.0           0.0           0       0.0 %
+      Engine 9                        0.0           0.0           1       0.0 %
+      Engine 10                       0.0           0.0           0       0.0 %
+      Engine 11                       1.0           0.4          59       0.5 %
+    Synchronous I/O's
+      Total Completed I/Os            0.0           0.0           0       n/a   
+  -------------------------  ------------  ------------  ----------             
+  Total Completed I/Os              183.5          71.0       11008             
+ 
+ 
+  Device Activity Detail
+  ----------------------
+ 
+    Device:                                                                       
+    /sybase/data_01.dat                           
+    data_01                  per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Reads                                                                       
+      APF                            83.9          32.5        5033      97.0 %
+      Non-APF                         2.3           0.9         138       2.7 %
+    Writes                            0.3           0.1          16       0.3 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total I/Os                         86.5          33.5        5187      47.1 %
+ 
+ 
+  ----------------------------------------------------------------------------- 
+ 
+  Device:                                                                       
+    /sybase/data_02.dat                           
+    data_02                  per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Reads                                                                       
+      APF                            50.3          19.5        3017      98.5 %
+      Non-APF                         0.8           0.3          46       1.5 %
+    Writes                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total I/Os                         51.1          19.8        3063      27.8 %
+ 
+ 
+  ----------------------------------------------------------------------------- 
+ 
+  Device:                                                                       
+    /sybase/data_03.dat                           
+    data_03                  per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Reads                                                                       
+      APF                            36.7          14.2        2204      98.8 %
+      Non-APF                         0.4           0.2          26       1.2 %
+    Writes                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total I/Os                         37.2          14.4        2230      20.2 %
+ 
+ 
+  ----------------------------------------------------------------------------- 
+ 
+  Device:                                                                       
+    /sybase/data_04.dat                           
+    data_04                  per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Reads                                                                       
+      APF                             1.0           0.4          58      85.3 %
+      Non-APF                         0.2           0.1          10      14.7 %
+    Writes                            0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------  ---------- 
+  Total I/Os                          1.1           0.4          68       0.6 % 
+ 
+ 
+=============================================================================== 
+ 
+Network I/O Management
+----------------------
+ 
+  Total Network I/O Requests          9.2           3.6         554       n/a   
+    Network I/Os Delayed              0.0           0.0           0       0.0 %
+ 
+ 
+  Total TDS Packets Received      per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Engine 0                          0.0           0.0           0       0.0 %
+    Engine 1                          0.5           0.2          27       5.3 %
+    Engine 2                          0.4           0.2          26       5.1 %
+    Engine 3                          1.4           0.5          84      16.5 %
+    Engine 4                          0.0           0.0           0       0.0 %
+    Engine 5                          0.0           0.0           0       0.0 %
+    Engine 6                          0.0           0.0           0       0.0 %
+    Engine 7                          0.5           0.2          29       5.7 %
+    Engine 8                          0.2           0.1          12       2.4 %
+    Engine 9                          3.0           1.2         180      35.4 %
+    Engine 10                         2.5           1.0         150      29.5 %
+    Engine 11                         0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------             
+  Total TDS Packets Rec'd             8.5           3.3         508             
+ 
+ 
+  Total Bytes Received            per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Engine 0                          0.0           0.0           0       0.0 %
+    Engine 1                         86.7          33.6        5203      11.7 %
+    Engine 2                         32.5          12.6        1948       4.4 %
+    Engine 3                        163.3          63.2        9799      22.0 %
+    Engine 4                          0.0           0.0           0       0.0 %
+    Engine 5                          0.0           0.0           0       0.0 %
+    Engine 6                          0.0           0.0           0       0.0 %
+    Engine 7                         70.7          27.3        4239       9.5 %
+    Engine 8                         16.9           6.5        1012       2.3 %
+    Engine 9                        200.0          77.4       12000      26.9 %
+    Engine 10                       173.0          67.0       10380      23.3 %
+    Engine 11                         0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------             
+  Total Bytes Rec'd                 743.0         287.6       44581             
+ 
+ 
+   Avg Bytes Rec'd per Packet          n/a           n/a          87       n/a  
+ 
+  ----------------------------------------------------------------------------- 
+ 
+  Total TDS Packets Sent          per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Engine 0                          0.0           0.0           0       0.0 %
+    Engine 1                          0.4           0.1          22       3.9 %
+    Engine 2                          0.4           0.2          26       4.6 %
+    Engine 3                          1.4           0.5          82      14.6 %
+    Engine 4                          0.0           0.0           0       0.0 %
+    Engine 5                          0.0           0.0           0       0.0 %
+    Engine 6                          0.0           0.0           0       0.0 %
+    Engine 7                          1.5           0.6          89      15.9 %
+    Engine 8                          0.2           0.1          12       2.1 %
+    Engine 9                          3.0           1.2         180      32.1 %
+    Engine 10                         2.5           1.0         150      26.7 %
+    Engine 11                         0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------             
+  Total TDS Packets Sent              9.4           3.6         561             
+ 
+ 
+  Total Bytes Sent                per sec      per xact       count  % of total
+  -------------------------  ------------  ------------  ----------  ---------- 
+    Engine 0                          0.0           0.0           0       0.0 %
+    Engine 1                         39.9          15.4        2394       0.2 %
+    Engine 2                        113.0          43.7        6778       0.7 %
+    Engine 3                        162.1          62.7        9723       1.0 %
+    Engine 4                          0.0           0.0           0       0.0 %
+    Engine 5                          0.0           0.0           0       0.0 %
+    Engine 6                          0.0           0.0           0       0.0 %
+    Engine 7                      13856.2        5363.7      831374      83.9 %
+    Engine 8                         47.5          18.4        2848       0.3 %
+    Engine 9                        693.0         268.3       41580       4.2 %
+    Engine 10                      1605.0         621.3       96300       9.7 %
+    Engine 11                         0.0           0.0           0       0.0 %
+  -------------------------  ------------  ------------  ----------             
+  Total Bytes Sent                16516.6        6393.5      990997             
+ 
+ 
+  Avg Bytes Sent per Packet           n/a           n/a        1766       n/a   
+ 
+===============================================================================
+ 
